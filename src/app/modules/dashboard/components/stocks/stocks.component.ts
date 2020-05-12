@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTable } from '@angular/material/table';
+import { StocksDataSource, StockItem } from './stocks.datasource';
 
 @Component({
   selector: 'app-stocks',
   templateUrl: './stocks.component.html',
   styleUrls: ['./stocks.component.css']
 })
-export class StocksComponent implements OnInit {
+export class StocksComponent implements AfterViewInit, OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatTable) table: MatTable<StockItem>;
+  dataSource: StocksDataSource;
 
-  constructor() { }
+  displayedColumns = ['quoteType', 'quoteSourceName', 'currency', 'shortName', 'exchangeTimezoneName', 'symbol'];
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.dataSource = new StocksDataSource();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.table.dataSource = this.dataSource;
   }
 
 }
