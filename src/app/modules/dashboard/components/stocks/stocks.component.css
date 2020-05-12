@@ -1,19 +1,19 @@
 .full-width-table {
-    width: 100%;
-  }
-  
-  .table-container {
-    position: relative;
-    height: 100%;
-  }
+  width: 100%;
+}
 
-  .table-space {
-    height:75%;
-    overflow: auto;
-  }  
+.table-container {
+  position: relative;
+  height: 100%;
+}
 
-  .mat-paginator {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-  }
+.table-space {
+  max-height: calc(100% - 56px);
+  overflow: auto;
+}
+
+.mat-paginator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
