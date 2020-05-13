@@ -3,17 +3,39 @@ import { DashboardService } from '../../dashboard.service';
 import { WeatherConditions } from '../../models/weather-conditions';
 import { Observable } from 'rxjs';
 
+interface City {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.css'],
 })
 export class WeatherComponent implements OnInit {
+  cities: City[] = [
+    { viewValue: 'Tokyo', value: 'tokyo' },
+    { viewValue: 'Shanghai', value: 'shanghai' },
+    { viewValue: 'Washington', value: 'washington' },
+    { viewValue: 'Paris', value: 'paris' },
+    { viewValue: 'New York', value: 'new_york' },
+    { viewValue: 'Warsaw', value: 'warsaw' },
+    { viewValue: 'Wroclaw', value: 'wroclaw' },
+    { viewValue: 'Poznan', value: 'poznan' },
+  ];
+  selectedCity: string = this.cities[0].value;
   weatherConditions$: Observable<WeatherConditions>;
 
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit() {
-    this.weatherConditions$ = this.dashboardService.getWeatherConditions();
+    this.onCityChanged();
+  }
+
+  onCityChanged() {
+    this.weatherConditions$ = this.dashboardService.getWeatherConditions(
+      this.selectedCity
+    );
   }
 }

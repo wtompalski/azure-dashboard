@@ -1,3 +1,7 @@
 .temperature {
   font-size: xx-large;
 }
+
+.mat-list-base .mat-list-item .mat-list-item-content {
+  justify-content: center;
+}

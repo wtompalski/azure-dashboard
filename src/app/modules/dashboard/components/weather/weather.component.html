@@ -1,4 +1,12 @@
 <div class="grid-container">
+  <mat-form-field>
+    <mat-label>Choose city</mat-label>
+    <mat-select [(ngModel)]="selectedCity" (selectionChange)="onCityChanged()">
+      <mat-option *ngFor="let city of cities" [value]="city.value">
+        {{ city.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   <div class="container" *ngIf="weatherConditions$ | async as wc; else loading">
     <mat-grid-list cols="2" rowHeight="fit">
       <mat-grid-tile>
@@ -6,7 +14,7 @@
           <mat-list-item
             ><h1 class="mat-h1">{{ wc.location.name }}</h1></mat-list-item
           >
-          <mat-list-item
+          <mat-list-item *ngIf="wc.location.region"
             ><h2 class="mat-h2">{{ wc.location.region }}</h2></mat-list-item
           >
           <mat-list-item
@@ -32,6 +40,8 @@
     </mat-grid-list>
   </div>
   <ng-template #loading>
-    Loading stuff...
+    <div class="container">
+      Loading stuff...
+    </div>
   </ng-template>
 </div>
