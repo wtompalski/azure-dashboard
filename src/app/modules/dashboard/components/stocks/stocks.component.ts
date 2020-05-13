@@ -7,7 +7,7 @@ import { StocksDataSource, StockItem } from './stocks.datasource';
 @Component({
   selector: 'app-stocks',
   templateUrl: './stocks.component.html',
-  styleUrls: ['./stocks.component.css']
+  styleUrls: ['./stocks.component.css'],
 })
 export class StocksComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -15,7 +15,14 @@ export class StocksComponent implements AfterViewInit, OnInit {
   @ViewChild(MatTable) table: MatTable<StockItem>;
   dataSource: StocksDataSource;
 
-  displayedColumns = ['quoteType', 'quoteSourceName', 'currency', 'shortName', 'exchangeTimezoneName', 'symbol'];
+  displayedColumns = [
+    'quoteType',
+    'quoteSourceName',
+    'currency',
+    'shortName',
+    'exchangeTimezoneName',
+    'symbol',
+  ];
 
   ngOnInit() {
     this.dataSource = new StocksDataSource();
@@ -26,5 +33,4 @@ export class StocksComponent implements AfterViewInit, OnInit {
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
-
 }

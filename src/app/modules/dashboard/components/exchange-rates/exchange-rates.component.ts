@@ -10,7 +10,7 @@ import {
 @Component({
   selector: 'app-exchange-rates',
   templateUrl: './exchange-rates.component.html',
-  styleUrls: ['./exchange-rates.component.css']
+  styleUrls: ['./exchange-rates.component.css'],
 })
 export class ExchangeRatesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -18,11 +18,7 @@ export class ExchangeRatesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatTable) table: MatTable<ExchangeRate>;
   dataSource: ExchangeRatesDataSource;
 
-  displayedColumns = [
-    'flag',
-    'currency',
-    'rate'
-  ];
+  displayedColumns = ['flag', 'currency', 'rate'];
 
   ngOnInit() {
     this.dataSource = new ExchangeRatesDataSource();
@@ -33,8 +29,12 @@ export class ExchangeRatesComponent implements AfterViewInit, OnInit {
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
-        
-  getSymbol(exchangeRate: ExchangeRate):string {
-    return 'https://www.x-rates.com/themes/x-rates/images/flags/' + exchangeRate.currency.toLowerCase() + '.png'
+
+  getSymbol(exchangeRate: ExchangeRate): string {
+    return (
+      'https://www.x-rates.com/themes/x-rates/images/flags/' +
+      exchangeRate.currency.toLowerCase() +
+      '.png'
+    );
   }
 }

@@ -8,9 +8,8 @@ describe('ExchangeRatesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExchangeRatesComponent ]
-    })
-    .compileComponents();
+      declarations: [ExchangeRatesComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

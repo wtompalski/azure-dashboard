@@ -1,41 +1,50 @@
 <div class="table-container mat-elevation-z8">
-    <div class="table-space">
-        <table mat-table class="full-width-table" matSort aria-label="Elements">
-            <ng-container matColumnDef="quoteType">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Quote type</th>
-                <td mat-cell *matCellDef="let row">{{row.quoteType}}</td>
-            </ng-container>
+  <div class="table-space">
+    <table mat-table class="full-width-table" matSort aria-label="Elements">
+      <ng-container matColumnDef="quoteType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Quote type</th>
+        <td mat-cell *matCellDef="let row">{{ row.quoteType }}</td>
+      </ng-container>
 
-            <ng-container matColumnDef="quoteSourceName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Quote source name</th>
-                <td mat-cell *matCellDef="let row">{{row.quoteSourceName}}</td>
-            </ng-container>
+      <ng-container matColumnDef="quoteSourceName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Quote source name
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.quoteSourceName }}</td>
+      </ng-container>
 
-            <ng-container matColumnDef="currency">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency</th>
-                <td mat-cell *matCellDef="let row">{{row.currency}}</td>
-            </ng-container>
+      <ng-container matColumnDef="currency">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency</th>
+        <td mat-cell *matCellDef="let row">{{ row.currency }}</td>
+      </ng-container>
 
-            <ng-container matColumnDef="shortName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Short name</th>
-                <td mat-cell *matCellDef="let row">{{row.shortName}}</td>
-            </ng-container>
+      <ng-container matColumnDef="shortName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Short name</th>
+        <td mat-cell *matCellDef="let row">{{ row.shortName }}</td>
+      </ng-container>
 
-            <ng-container matColumnDef="exchangeTimezoneName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Exchange timezone name</th>
-                <td mat-cell *matCellDef="let row">{{row.exchangeTimezoneName}}</td>
-            </ng-container>
+      <ng-container matColumnDef="exchangeTimezoneName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Exchange timezone name
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.exchangeTimezoneName }}</td>
+      </ng-container>
 
-            <ng-container matColumnDef="symbol">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</th>
-                <td mat-cell *matCellDef="let row">{{row.symbol}}</td>
-            </ng-container>
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</th>
+        <td mat-cell *matCellDef="let row">{{ row.symbol }}</td>
+      </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-    </div>
-    <mat-paginator #paginator [length]="dataSource?.data.length" [pageIndex]="0" [pageSize]="50"
-        [pageSizeOptions]="[25, 50, 100, 250]">
-    </mat-paginator>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+  <mat-paginator
+    #paginator
+    [length]="dataSource?.data.length"
+    [pageIndex]="0"
+    [pageSize]="50"
+    [pageSizeOptions]="[25, 50, 100, 250]"
+  >
+  </mat-paginator>
 </div>
