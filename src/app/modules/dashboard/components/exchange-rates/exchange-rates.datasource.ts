@@ -1,55 +1,25 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, tap, finalize } from 'rxjs/operators';
 import { Observable, of, merge, Subject } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 import { ExchangeRate } from '../../models/exchange-rate';
-
-const EXAMPLE_DATA: ExchangeRate[] = [
-  { currency: 'USD', rate: 1.0858 },
-  { currency: 'JPY', rate: 116.56 },
-  { currency: 'BGN', rate: 1.9558 },
-  { currency: 'CZK', rate: 27.423 },
-  { currency: 'DKK', rate: 7.4577 },
-  { currency: 'GBP', rate: 0.87773 },
-  { currency: 'HUF', rate: 350.75 },
-  { currency: 'PLN', rate: 4.5449 },
-  { currency: 'RON', rate: 4.8301 },
-  { currency: 'SEK', rate: 10.5968 },
-  { currency: 'CHF', rate: 1.052 },
-  { currency: 'ISK', rate: 158.7 },
-  { currency: 'NOK', rate: 11.0518 },
-  { currency: 'HRK', rate: 7.5653 },
-  { currency: 'RUB', rate: 79.4157 },
-  { currency: 'TRY', rate: 7.5979 },
-  { currency: 'AUD', rate: 1.6625 },
-  { currency: 'BRL', rate: 6.2708 },
-  { currency: 'CAD', rate: 1.5178 },
-  { currency: 'CNY', rate: 7.6933 },
-  { currency: 'HKD', rate: 8.4154 },
-  { currency: 'IDR', rate: 16073.64 },
-  { currency: 'ILS', rate: 3.807 },
-  { currency: 'INR', rate: 81.593 },
-  { currency: 'KRW', rate: 1326.17 },
-  { currency: 'MXN', rate: 25.8251 },
-  { currency: 'MYR', rate: 4.6977 },
-  { currency: 'NZD', rate: 1.7742 },
-  { currency: 'PHP', rate: 54.388 },
-  { currency: 'SGD', rate: 1.5357 },
-  { currency: 'THB', rate: 34.854 },
-  { currency: 'ZAR', rate: 19.7382 },
-];
+import { DashboardService } from '../../dashboard.service';
 
 export class ExchangeRatesDataSource extends DataSource<ExchangeRate>
   implements OnDestroy {
-  data: ExchangeRate[] = EXAMPLE_DATA;
+  data: ExchangeRate[];
   paginator: MatPaginator;
   sort: MatSort;
 
+  loading = true;
+
+  private exchangeRates$: Observable<ExchangeRate[]>;
+
   private unsubscribe$ = new Subject<void>();
 
-  constructor() {
+  constructor(private dashboardService: DashboardService) {
     super();
   }
 
@@ -61,16 +31,18 @@ export class ExchangeRatesDataSource extends DataSource<ExchangeRate>
   connect(): Observable<ExchangeRate[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
-    const dataMutations = [
-      of(this.data),
+    /*const dataMutations = [
+      this.exchangeRates$,
       this.paginator.page,
       this.sort.sortChange,
-    ];
+    ];*/
 
-    return merge(...dataMutations).pipe(
-      map(() => {
-        return this.getPagedData(this.getSortedData([...this.data]));
-      }),
+    this.loading = true;
+
+    return this.dashboardService.getExchangeRates().pipe(
+      map((result) => this.getPagedData(this.getSortedData(result))),
+      tap((result) => (this.data = result)),
+      finalize(() => (this.loading = false)),
       takeUntil(this.unsubscribe$)
     );
   }

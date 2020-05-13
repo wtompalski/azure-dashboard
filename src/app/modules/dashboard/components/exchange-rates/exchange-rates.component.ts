@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { ExchangeRatesDataSource } from './exchange-rates.datasource';
 import { ExchangeRate } from '../../models/exchange-rate';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-exchange-rates',
@@ -16,10 +17,12 @@ export class ExchangeRatesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatTable) table: MatTable<ExchangeRate>;
   dataSource: ExchangeRatesDataSource;
 
+  constructor(private dashboardService: DashboardService) {}
+
   displayedColumns = ['flag', 'currency', 'rate'];
 
   ngOnInit() {
-    this.dataSource = new ExchangeRatesDataSource();
+    this.dataSource = new ExchangeRatesDataSource(this.dashboardService);
   }
 
   ngAfterViewInit() {
