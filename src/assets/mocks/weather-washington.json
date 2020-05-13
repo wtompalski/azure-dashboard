@@ -17,7 +17,7 @@
     "is_day": 1,
     "condition": {
       "text": "Overcast",
-      "icon": "//cdn.weatherapi.com/weather/64x64/day/122.png",
+      "icon": "http://cdn.weatherapi.com/weather/64x64/day/122.png",
       "code": 1009
     },
     "wind_mph": 12.5,

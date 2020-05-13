@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MatListModule } from '@angular/material/list';
     MatMenuModule,
     MatToolbarModule,
     MatListModule,
+    HttpClientModule,
   ],
 })
 export class DashboardModule {}

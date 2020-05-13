@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../../dashboard.service';
+import { WeatherConditions } from '../../models/weather-conditions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-weather',
@@ -6,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./weather.component.css'],
 })
 export class WeatherComponent implements OnInit {
-  constructor() {}
+  weatherConditions$: Observable<WeatherConditions>;
 
-  ngOnInit(): void {}
+  constructor(private dashboardService: DashboardService) {}
+
+  ngOnInit() {
+    this.weatherConditions$ = this.dashboardService.getWeatherConditions();
+  }
 }
