@@ -1,27 +1,26 @@
-<div class="grid-container">
-  <mat-form-field>
-    <mat-label>Choose city</mat-label>
-    <mat-select [(ngModel)]="selectedCity" (selectionChange)="onCityChanged()">
-      <mat-option *ngFor="let city of cities" [value]="city.value">
-        {{ city.viewValue }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div class="container" *ngIf="weatherConditions$ | async as wc; else loading">
-    <h1 class="mat-h1">
-      {{ wc.location.name }}
-      <span *ngIf="wc.location.region">/ {{ wc.location.region }}</span> /
-      {{ wc.location.country }}
-    </h1>
-    <div>
-      <div>{{ wc.current.condition.text }}</div>
-      <div><img [src]="wc.current.condition.icon" /></div>
-      <div class="temperature">{{ wc.current.temp_c }}°C</div>
-    </div>
+<mat-form-field>
+  <mat-label>Choose city</mat-label>
+  <mat-select [(ngModel)]="selectedCity" (selectionChange)="onCityChanged()">
+    <mat-option *ngFor="let city of cities" [value]="city.value">
+      {{ city.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div class="mt-25" *ngIf="weatherConditions$ | async as wc; else loading">
+  <div class="mat-h1 mb-0">
+    {{ wc.location.name }}
   </div>
-  <ng-template #loading>
-    <div class="container">
-      Loading stuff...
-    </div>
-  </ng-template>
+  <span *ngIf="wc.location.region">{{ wc.location.region }}</span> /
+  {{ wc.location.country }}
+
+  <div class="mt-25">
+    <div>{{ wc.current.condition.text }}</div>
+    <div><img [src]="wc.current.condition.icon" /></div>
+    <div class="temperature">{{ wc.current.temp_c }}°C</div>
+  </div>
 </div>
+<ng-template #loading>
+  <div class="container">
+    Loading stuff...
+  </div>
+</ng-template>

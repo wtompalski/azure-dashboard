@@ -15,9 +15,10 @@ interface City {
 })
 export class WeatherComponent implements OnInit {
   cities: City[] = [
+    { viewValue: 'Washington', value: 'washington' },
+    { viewValue: 'Berlin', value: 'berlin' },
     { viewValue: 'Tokyo', value: 'tokyo' },
     { viewValue: 'Shanghai', value: 'shanghai' },
-    { viewValue: 'Washington', value: 'washington' },
     { viewValue: 'Paris', value: 'paris' },
     { viewValue: 'New York', value: 'new_york' },
     { viewValue: 'Warsaw', value: 'warsaw' },
