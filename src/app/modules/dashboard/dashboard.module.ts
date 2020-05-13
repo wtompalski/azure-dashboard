@@ -12,11 +12,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-
-
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
-  declarations: [WeatherComponent, StocksComponent, ExchangeRatesComponent, DashboardPageComponent],
+  declarations: [
+    WeatherComponent,
+    StocksComponent,
+    ExchangeRatesComponent,
+    DashboardPageComponent,
+  ],
   imports: [
     CommonModule,
     MatTableModule,
@@ -26,7 +30,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatIconModule,
     MatGridListModule,
     MatCardModule,
-    MatMenuModule
-  ]
+    MatMenuModule,
+    MatToolbarModule,
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}
