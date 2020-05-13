@@ -4,15 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { map, takeUntil } from 'rxjs/operators';
 import { Observable, of, merge, Subject } from 'rxjs';
 import { OnDestroy } from '@angular/core';
-
-export interface StockItem {
-  quoteType: string;
-  quoteSourceName: string;
-  currency: string;
-  shortName: string;
-  exchangeTimezoneName: string;
-  symbol: string;
-}
+import { StockItem } from '../../models/stock-item';
 
 const EXAMPLE_DATA: StockItem[] = [
   {

@@ -4,11 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { map, takeUntil } from 'rxjs/operators';
 import { Observable, of, merge, Subject } from 'rxjs';
 import { OnDestroy } from '@angular/core';
-
-export interface ExchangeRate {
-  currency: string;
-  rate: number;
-}
+import { ExchangeRate } from '../../models/exchange-rate';
 
 const EXAMPLE_DATA: ExchangeRate[] = [
   { currency: 'USD', rate: 1.0858 },

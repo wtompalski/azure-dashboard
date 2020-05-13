@@ -2,10 +2,8 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import {
-  ExchangeRatesDataSource,
-  ExchangeRate,
-} from './exchange-rates.datasource';
+import { ExchangeRatesDataSource } from './exchange-rates.datasource';
+import { ExchangeRate } from '../../models/exchange-rate';
 
 @Component({
   selector: 'app-exchange-rates',

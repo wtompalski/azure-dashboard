@@ -2,7 +2,8 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { StocksDataSource, StockItem } from './stocks.datasource';
+import { StocksDataSource } from './stocks.datasource';
+import { StockItem } from '../../models/stock-item';
 
 @Component({
   selector: 'app-stocks',
