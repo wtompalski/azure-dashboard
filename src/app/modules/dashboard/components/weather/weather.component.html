@@ -8,36 +8,16 @@
     </mat-select>
   </mat-form-field>
   <div class="container" *ngIf="weatherConditions$ | async as wc; else loading">
-    <mat-grid-list cols="2" rowHeight="fit">
-      <mat-grid-tile>
-        <mat-list>
-          <mat-list-item
-            ><h1 class="mat-h1">{{ wc.location.name }}</h1></mat-list-item
-          >
-          <mat-list-item *ngIf="wc.location.region"
-            ><h2 class="mat-h2">{{ wc.location.region }}</h2></mat-list-item
-          >
-          <mat-list-item
-            ><h3 class="mat-h3">{{ wc.location.country }}</h3></mat-list-item
-          >
-        </mat-list>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-list>
-          <mat-list-item
-            ><img [src]="wc.current.condition.icon"
-          /></mat-list-item>
-          <mat-list-item>
-            <span class="temperature"
-              >{{ wc.current.temp_c }}°C</span
-            ></mat-list-item
-          >
-          <mat-list-item>
-            <span>{{ wc.current.condition.text }}</span></mat-list-item
-          >
-        </mat-list>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <h1 class="mat-h1">
+      {{ wc.location.name }}
+      <span *ngIf="wc.location.region">/ {{ wc.location.region }}</span> /
+      {{ wc.location.country }}
+    </h1>
+    <div>
+      <div>{{ wc.current.condition.text }}</div>
+      <div><img [src]="wc.current.condition.icon" /></div>
+      <div class="temperature">{{ wc.current.temp_c }}°C</div>
+    </div>
   </div>
   <ng-template #loading>
     <div class="container">
