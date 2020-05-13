@@ -13,6 +13,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list'
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatCardModule,
     MatMenuModule,
     MatToolbarModule,
+    MatListModule
   ],
 })
 export class DashboardModule {}
