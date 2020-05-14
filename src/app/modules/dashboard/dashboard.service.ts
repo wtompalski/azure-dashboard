@@ -11,9 +11,10 @@ import { StockItem } from './models/stock-item';
   providedIn: 'root',
 })
 export class DashboardService {
-  private weatherUrl = 'http://api.weatherapi.com/v1/current.json';
-  private currencyExchangeUrl = 'assets/mocks/eurofxref-daily.xml';
-  private stockUrl = 'https://finnhub.io/api/v1/quote';
+  private weatherUrl = '/api/weather/v1/current.json';
+  private currencyExchangeUrl =
+    '/api/exchange/stats/eurofxref/eurofxref-daily.xml';
+  private stockUrl = '/api/stocks/api/v1/quote';
 
   constructor(private http: HttpClient) {}
 

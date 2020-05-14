@@ -5,7 +5,19 @@ const publicweb = process.env.PUBLICWEB || ".";
 const app = express();
 
 app.use(express.static(publicweb));
-app.use("/api/weather", proxy("http://api.weatherapi.com/v1/current.json"));
+app.use("/api/weather", proxy("http://api.weatherapi.com"));
+app.use(
+  "/api/exchange",
+  proxy("www.ecb.europa.eu", {
+    https: true,
+  })
+);
+app.use(
+  "/api/stocks",
+  proxy("finnhub.io", {
+    https: true,
+  })
+);
 
 console.log(`serving ${publicweb}`);
 
