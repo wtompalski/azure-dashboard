@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { StocksDataSource } from './stocks.datasource';
 import { StockItem } from '../../models/stock-item';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-stocks',
@@ -17,16 +18,18 @@ export class StocksComponent implements AfterViewInit, OnInit {
   dataSource: StocksDataSource;
 
   displayedColumns = [
-    'quoteType',
-    'quoteSourceName',
-    'currency',
-    'shortName',
-    'exchangeTimezoneName',
     'symbol',
+    'open',
+    'close',
+    'low',
+    'high',
+    'previousClose',
   ];
 
+  constructor(private dashboardService: DashboardService) {}
+
   ngOnInit() {
-    this.dataSource = new StocksDataSource();
+    this.dataSource = new StocksDataSource(this.dashboardService);
   }
 
   ngAfterViewInit() {

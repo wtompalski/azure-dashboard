@@ -1,55 +1,23 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { map, takeUntil } from 'rxjs/operators';
-import { Observable, of, merge, Subject } from 'rxjs';
+import { map, takeUntil, tap, finalize } from 'rxjs/operators';
+import { Observable, of, merge, Subject, concat, forkJoin } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 import { StockItem } from '../../models/stock-item';
-
-const EXAMPLE_DATA: StockItem[] = [
-  {
-    quoteType: 'EQUITY',
-    quoteSourceName: 'Nasdaq Real Time Price',
-    currency: 'USD',
-    shortName: 'Microsoft Corporation',
-    exchangeTimezoneName: 'America/New_York',
-    symbol: 'MSFT',
-  },
-  {
-    quoteType: 'EQUITY',
-    quoteSourceName: 'Nasdaq Real Time Price',
-    currency: 'USD',
-    shortName: 'Microsoft Corporation',
-    exchangeTimezoneName: 'America/New_York',
-    symbol: 'MSFT',
-  },
-  {
-    quoteType: 'EQUITY',
-    quoteSourceName: 'Nasdaq Real Time Price',
-    currency: 'USD',
-    shortName: 'Microsoft Corporation',
-    exchangeTimezoneName: 'America/New_York',
-    symbol: 'MSFT',
-  },
-  {
-    quoteType: 'EQUITY',
-    quoteSourceName: 'Nasdaq Real Time Price',
-    currency: 'USD',
-    shortName: 'Microsoft Corporation',
-    exchangeTimezoneName: 'America/New_York',
-    symbol: 'MSFT',
-  },
-];
+import { DashboardService } from '../../dashboard.service';
 
 export class StocksDataSource extends DataSource<StockItem>
   implements OnDestroy {
-  data: StockItem[] = EXAMPLE_DATA;
+  symbols: string[] = ['AAPL', 'BA', 'DIS', 'GE', 'NKE', 'SBUX'];
+  data: StockItem[] = [];
   paginator: MatPaginator;
   sort: MatSort;
+  loading = true;
 
   private unsubscribe$ = new Subject<void>();
 
-  constructor() {
+  constructor(private dashboardService: DashboardService) {
     super();
   }
 
@@ -59,18 +27,18 @@ export class StocksDataSource extends DataSource<StockItem>
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<StockItem[]> {
-    // Combine everything that affects the rendered data into one update
-    // stream for the data-table to consume.
-    const dataMutations = [
-      of(this.data),
-      this.paginator.page,
-      this.sort.sortChange,
-    ];
-
-    return merge(...dataMutations).pipe(
-      map(() => {
-        return this.getPagedData(this.getSortedData([...this.data]));
-      }),
+    this.loading = true;
+    this.data = [];
+    return forkJoin(
+      this.symbols.map((symbol) =>
+        this.dashboardService
+          .getStockItem(symbol)
+          .pipe(tap((result) => this.data.push(result)))
+      )
+    ).pipe(
+      map((result) => this.getPagedData(this.getSortedData(result))),
+      tap((result) => (this.data = result)),
+      finalize(() => (this.loading = false)),
       takeUntil(this.unsubscribe$)
     );
   }
@@ -107,22 +75,18 @@ export class StocksDataSource extends DataSource<StockItem>
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'quoteType':
-          return this.compare(a.quoteType, b.quoteType, isAsc);
-        case 'quoteSourceName':
-          return this.compare(a.quoteSourceName, b.quoteSourceName, isAsc);
-        case 'currency':
-          return this.compare(a.currency, b.currency, isAsc);
-        case 'shortName':
-          return this.compare(a.shortName, b.shortName, isAsc);
-        case 'exchangeTimezoneName':
-          return this.compare(
-            a.exchangeTimezoneName,
-            b.exchangeTimezoneName,
-            isAsc
-          );
         case 'symbol':
-          return this.compare(a.symbol, b.symbol, isAsc);
+          return this.compare(a.s, b.s, isAsc);
+        case 'open':
+          return this.compare(a.o, b.o, isAsc);
+        case 'close':
+          return this.compare(a.c, b.c, isAsc);
+        case 'l':
+          return this.compare(a.l, b.l, isAsc);
+        case 'h':
+          return this.compare(a.h, b.h, isAsc);
+        case 'previousClose':
+          return this.compare(a.pc, b.pc, isAsc);
         default:
           return 0;
       }

@@ -1,8 +1,9 @@
 export interface StockItem {
-  quoteType: string;
-  quoteSourceName: string;
-  currency: string;
-  shortName: string;
-  exchangeTimezoneName: string;
-  symbol: string;
+  s: string;
+  c: number;
+  h: number;
+  l: number;
+  o: number;
+  pc: number;
+  t: number;
 }

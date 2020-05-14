@@ -1,38 +1,38 @@
 <div class="table-container mat-elevation-z0">
   <div class="table-space">
     <table mat-table class="full-width-table" matSort aria-label="Elements">
-      <ng-container matColumnDef="quoteType">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Quote type</th>
-        <td mat-cell *matCellDef="let row">{{ row.quoteType }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="quoteSourceName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Quote source name
-        </th>
-        <td mat-cell *matCellDef="let row">{{ row.quoteSourceName }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="currency">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency</th>
-        <td mat-cell *matCellDef="let row">{{ row.currency }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="shortName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Short name</th>
-        <td mat-cell *matCellDef="let row">{{ row.shortName }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="exchangeTimezoneName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Exchange timezone name
-        </th>
-        <td mat-cell *matCellDef="let row">{{ row.exchangeTimezoneName }}</td>
-      </ng-container>
-
       <ng-container matColumnDef="symbol">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</th>
-        <td mat-cell *matCellDef="let row">{{ row.symbol }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.s }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="open">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Open
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.o }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="close">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Close</th>
+        <td mat-cell *matCellDef="let row">{{ row.c }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="low">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Low</th>
+        <td mat-cell *matCellDef="let row">{{ row.l }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="high">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>High</th>
+        <td mat-cell *matCellDef="let row">{{ row.h }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="previousClose">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Previous close
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.pc }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
