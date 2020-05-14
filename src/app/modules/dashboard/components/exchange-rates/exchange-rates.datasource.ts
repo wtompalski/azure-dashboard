@@ -9,13 +9,10 @@ import { DashboardService } from '../../dashboard.service';
 
 export class ExchangeRatesDataSource extends DataSource<ExchangeRate>
   implements OnDestroy {
-  data: ExchangeRate[];
+  data: ExchangeRate[] = [];
   paginator: MatPaginator;
   sort: MatSort;
-
   loading = true;
-
-  private exchangeRates$: Observable<ExchangeRate[]>;
 
   private unsubscribe$ = new Subject<void>();
 
