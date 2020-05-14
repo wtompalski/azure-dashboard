@@ -87,6 +87,8 @@ export class StocksDataSource extends DataSource<StockItem>
           return this.compare(a.h, b.h, isAsc);
         case 'previousClose':
           return this.compare(a.pc, b.pc, isAsc);
+        case 'tendency':
+          return this.compare(a.pc - a.c, b.pc - b.c, isAsc);
         default:
           return 0;
       }

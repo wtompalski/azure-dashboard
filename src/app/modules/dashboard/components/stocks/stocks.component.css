@@ -1,1 +1,11 @@
+.dropping {
+  color: red;
+}
 
+.raising {
+  color: green;
+}
+
+.mat-column-tendency {
+  width: 150px;
+}

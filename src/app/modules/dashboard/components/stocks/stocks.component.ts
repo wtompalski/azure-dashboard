@@ -18,6 +18,7 @@ export class StocksComponent implements AfterViewInit, OnInit {
   dataSource: StocksDataSource;
 
   displayedColumns = [
+    'tendency',
     'symbol',
     'open',
     'close',
@@ -36,5 +37,13 @@ export class StocksComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+  isRaising(stock: StockItem): boolean {
+    return stock.c > stock.pc;
+  }
+
+  isDropping(stock: StockItem): boolean {
+    return stock.c < stock.pc;
   }
 }
