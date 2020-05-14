@@ -4,12 +4,12 @@
       <ng-container matColumnDef="tendency">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let row">
-          <span *ngIf="isDropping(row)" class="dropping">
+          <div *ngIf="isDropping(row)" class="dropping v-centered">
             <mat-icon>arrow_drop_down</mat-icon>{{ row.pc - row.c | number }}
-          </span>
-          <span *ngIf="isRaising(row)" class="raising">
-            <mat-icon>arrow_drop_down</mat-icon>{{ row.pc - row.c }}
-          </span>
+          </div>
+          <div *ngIf="isRaising(row)" class="raising v-centered">
+            <mat-icon>arrow_drop_down</mat-icon>{{ row.pc - row.c | number }}
+          </div>
         </td>
       </ng-container>
 

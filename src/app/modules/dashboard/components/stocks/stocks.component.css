@@ -9,3 +9,8 @@
 .mat-column-tendency {
   width: 150px;
 }
+
+.v-centered {
+  display: flex;
+  align-items: center;
+}
