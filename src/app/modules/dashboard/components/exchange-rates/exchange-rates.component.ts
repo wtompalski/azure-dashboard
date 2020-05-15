@@ -25,11 +25,10 @@ export class ExchangeRatesComponent
   @ViewChild(MatTable) table: MatTable<ExchangeRate>;
   dataSource: MatTableDataSource<ExchangeRate>;
   loading = false;
+  displayedColumns = ['flag', 'currency', 'rate'];
   private unsubscribe$ = new Subject<void>();
 
   constructor(private dashboardService: DashboardService) {}
-
-  displayedColumns = ['flag', 'currency', 'rate'];
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<ExchangeRate>();
