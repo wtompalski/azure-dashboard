@@ -5,9 +5,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { WeatherConditions } from './models/weather-conditions';
 import { ExchangeRate } from './models/exchange-rate';
 import { parseString } from 'xml2js';
-import { StockItem } from './models/stock-item';
+import { StockItemRaw } from './models/stock-item-raw';
 import { environment } from 'src/environments/environment';
-import { StockItemDelta } from './models/stock-item-delta';
+import { StockItem } from './models/stock-item';
 
 @Injectable({
   providedIn: 'root',
@@ -31,13 +31,13 @@ export class DashboardService {
       .pipe(map((response) => this.extractExchangeRates(response)));
   }
 
-  getStockItem(symbol: string): Observable<StockItemDelta> {
+  getStockItem(symbol: string): Observable<StockItem> {
     const params = new HttpParams()
       .set('token', 'bqudtkfrh5rc9givu6vg')
       .set('symbol', symbol);
 
     return this.http
-      .get<StockItem>(environment.stockUrl, { params: params })
+      .get<StockItemRaw>(environment.stockUrl, { params: params })
       .pipe(
         map((response) => ({
           ...response,

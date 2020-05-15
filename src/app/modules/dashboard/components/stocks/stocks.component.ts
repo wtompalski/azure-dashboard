@@ -8,11 +8,10 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { StockItem } from '../../models/stock-item';
 import { DashboardService } from '../../dashboard.service';
 import { Subject, forkJoin } from 'rxjs';
 import { tap, finalize, takeUntil } from 'rxjs/operators';
-import { StockItemDelta } from '../../models/stock-item-delta';
+import { StockItem } from '../../models/stock-item';
 
 @Component({
   selector: 'app-stocks',
@@ -32,7 +31,7 @@ export class StocksComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource<StockItemDelta>();
+    this.dataSource = new MatTableDataSource<StockItem>();
 
     this.loading = true;
 
@@ -58,11 +57,11 @@ export class StocksComponent implements OnInit, AfterViewInit, OnDestroy {
     this.table.dataSource = this.dataSource;
   }
 
-  isRaising(stock: StockItemDelta): boolean {
+  isRaising(stock: StockItem): boolean {
     return stock.c > stock.pc;
   }
 
-  isDropping(stock: StockItemDelta): boolean {
+  isDropping(stock: StockItem): boolean {
     return stock.c < stock.pc;
   }
 }

@@ -1,9 +1,6 @@
-export interface StockItem {
+import { StockItemRaw } from './stock-item-raw';
+
+export interface StockItem extends StockItemRaw {
   s: string;
-  c: number;
-  h: number;
-  l: number;
-  o: number;
-  pc: number;
-  t: number;
+  d: number;
 }
