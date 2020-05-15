@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  weatherUrl: 'http://api.weatherapi.com/v1/current.json',
+  currencyExchangeUrl: 'assets/mocks/eurofxref-daily.xml',
+  stockUrl: 'https://finnhub.io/api/v1/quote',
 };
 
 /*

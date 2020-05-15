@@ -6,16 +6,12 @@ import { WeatherConditions } from './models/weather-conditions';
 import { ExchangeRate } from './models/exchange-rate';
 import { parseString } from 'xml2js';
 import { StockItem } from './models/stock-item';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
-  private weatherUrl = '/api/weather/v1/current.json';
-  private currencyExchangeUrl =
-    '/api/exchange/stats/eurofxref/eurofxref-daily.xml';
-  private stockUrl = '/api/stocks/api/v1/quote';
-
   constructor(private http: HttpClient) {}
 
   getWeatherConditions(city: string): Observable<WeatherConditions> {
@@ -23,14 +19,14 @@ export class DashboardService {
       .set('key', 'e5bde0bca9784e54a0755717201305')
       .set('q', city);
 
-    return this.http.get<WeatherConditions>(this.weatherUrl, {
+    return this.http.get<WeatherConditions>(environment.weatherUrl, {
       params: params,
     });
   }
 
   getExchangeRates(): Observable<ExchangeRate[]> {
     return this.http
-      .get(this.currencyExchangeUrl, { responseType: 'text' })
+      .get(environment.currencyExchangeUrl, { responseType: 'text' })
       .pipe(map((response) => this.extractExchangeRates(response)));
   }
 
@@ -40,7 +36,7 @@ export class DashboardService {
       .set('symbol', symbol);
 
     return this.http
-      .get<StockItem>(this.stockUrl, { params: params })
+      .get<StockItem>(environment.stockUrl, { params: params })
       .pipe(map((response) => ({ ...response, s: symbol })));
   }
 
