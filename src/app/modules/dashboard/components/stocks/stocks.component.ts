@@ -26,6 +26,7 @@ export class StocksComponent implements OnInit, AfterViewInit, OnDestroy {
   loading = false;
   displayedColumns = [
     'tendency',
+    'delta',
     'symbol',
     'open',
     'close',
