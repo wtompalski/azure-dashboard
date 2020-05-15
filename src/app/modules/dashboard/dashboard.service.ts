@@ -7,6 +7,7 @@ import { ExchangeRate } from './models/exchange-rate';
 import { parseString } from 'xml2js';
 import { StockItem } from './models/stock-item';
 import { environment } from 'src/environments/environment';
+import { StockItemDelta } from './models/stock-item-delta';
 
 @Injectable({
   providedIn: 'root',
@@ -30,14 +31,20 @@ export class DashboardService {
       .pipe(map((response) => this.extractExchangeRates(response)));
   }
 
-  getStockItem(symbol: string): Observable<StockItem> {
+  getStockItem(symbol: string): Observable<StockItemDelta> {
     const params = new HttpParams()
       .set('token', 'bqudtkfrh5rc9givu6vg')
       .set('symbol', symbol);
 
     return this.http
       .get<StockItem>(environment.stockUrl, { params: params })
-      .pipe(map((response) => ({ ...response, s: symbol })));
+      .pipe(
+        map((response) => ({
+          ...response,
+          s: symbol,
+          d: response.c - response.pc,
+        }))
+      );
   }
 
   private extractExchangeRates(content: string): ExchangeRate[] {

@@ -12,6 +12,7 @@ import { StockItem } from '../../models/stock-item';
 import { DashboardService } from '../../dashboard.service';
 import { Subject, forkJoin } from 'rxjs';
 import { tap, finalize, takeUntil } from 'rxjs/operators';
+import { StockItemDelta } from '../../models/stock-item-delta';
 
 @Component({
   selector: 'app-stocks',
@@ -24,23 +25,14 @@ export class StocksComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatTable) table: MatTable<StockItem>;
   dataSource: MatTableDataSource<StockItem>;
   loading = false;
-  displayedColumns = [
-    'tendency',
-    'delta',
-    'symbol',
-    'open',
-    'close',
-    'low',
-    'high',
-    'previousClose',
-  ];
+  displayedColumns = ['t', 'd', 's', 'o', 'c', 'l', 'h', 'pc'];
   private symbols: string[] = ['AAPL', 'BA', 'DIS', 'GE', 'NKE', 'SBUX'];
   private unsubscribe$ = new Subject<void>();
 
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource<StockItem>();
+    this.dataSource = new MatTableDataSource<StockItemDelta>();
 
     this.loading = true;
 
@@ -66,11 +58,11 @@ export class StocksComponent implements OnInit, AfterViewInit, OnDestroy {
     this.table.dataSource = this.dataSource;
   }
 
-  isRaising(stock: StockItem): boolean {
+  isRaising(stock: StockItemDelta): boolean {
     return stock.c > stock.pc;
   }
 
-  isDropping(stock: StockItem): boolean {
+  isDropping(stock: StockItemDelta): boolean {
     return stock.c < stock.pc;
   }
 }
